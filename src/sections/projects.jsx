@@ -1,5 +1,6 @@
 import projects from "../data/projectsData";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
+import { FaPlay } from "react-icons/fa";
 import "aos/dist/aos.css";
 import AOS from "aos";
 import { useEffect, useState } from "react";
@@ -9,7 +10,18 @@ export default function Projects() {
     AOS.init({ duration: 800, once: false });
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = () => {
+      setOpenDemo(null);
+    };
+
+    window.addEventListener("click", handleClickOutside);
+
+    return () => window.removeEventListener("click", handleClickOutside);
+  }, []);
+
   const [selectedImage, setSelectedImage] = useState(null);
+  const [openDemo, setOpenDemo] = useState(null);
 
   return (
     <section
@@ -54,18 +66,50 @@ export default function Projects() {
                     <span key={idx}>{t}</span>
                   ))}
                 </div>
+                <div className="project-links">
+                  {p.file && (
+                    <a
+                      href={p.file}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="view-details"
+                    >
+                      <FaArrowUpRightFromSquare className="view-icon" />
+                      View Case Study
+                    </a>
+                  )}
 
-                {p.file && (
-                  <a
-                    href={p.file}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="view-details"
-                  >
-                    <FaArrowUpRightFromSquare className="view-icon" />
-                    View Case Study
-                  </a>
-                )}
+                  {p.loomLinks && (
+                    <div className="demo-wrapper">
+                      <span
+                        className="view-details"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setOpenDemo(openDemo === i ? null : i);
+                        }}
+                      >
+                        <FaPlay className="view-icon" />
+                        View Demo
+                      </span>
+
+                      {openDemo === i && (
+                        <div className="demo-dropdown">
+                          {p.loomLinks.map((l, idx) => (
+                            <a
+                              key={idx}
+                              href={l.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={() => setOpenDemo(null)}
+                            >
+                              {l.label}
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           ))}

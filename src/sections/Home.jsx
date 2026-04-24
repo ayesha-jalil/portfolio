@@ -27,7 +27,12 @@ export default function Home() {
             <span className="black">And I'm a </span>
             <span className="role-text">
               <Typewriter
-                words={["Microsoft Power Platform Developer", "Web Developer"]}
+                words={[
+                  "Microsoft Power Platform Developer",
+                  "Web Developer",
+                  "SharePoint Site Designer",
+                  "Wix Designer",
+                ]}
                 loop={0}
                 cursor
                 cursorStyle="|"
