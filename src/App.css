@@ -116,8 +116,12 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 90vh;
+  min-height: calc(100svh - 80px);
   gap: 40px;
+}
+.home-text {
+  position: relative;
+  z-index: 2;
 }
 .home-text p {
   max-width: 550px;
@@ -188,6 +192,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 }
 .home-image img {
   width: 320px;
@@ -208,6 +213,7 @@ a {
   background: radial-gradient(circle, rgba(13, 148, 136, 0.4), transparent 70%);
   z-index: 1;
   animation: pulse 3s infinite;
+  pointer-events: none;
 }
 @keyframes floatImage {
   0% {
@@ -266,6 +272,11 @@ a {
   .home-buttons {
     justify-content: center;
     flex-wrap: wrap;
+  }
+
+  .home-buttons a {
+    min-width: 140px;
+    justify-content: center;
   }
 
   .home-image {
@@ -1062,4 +1073,12 @@ a {
 .footer p {
   font-size: 13px;
   margin-bottom: 5px;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+#projects,
+#contact {
+  scroll-margin-top: 90px;
 }
